@@ -1,3 +1,4 @@
+#include <avr/io.h>
 #include "gpio.h"
 
 const int LED1_PIN = 5;    // Porta B 5
@@ -24,12 +25,6 @@ void pinMode(int pin, int mode) {
   } else {
     DDRB |= ~BIT_MASK << pin;
   }
-
-  return;
-}
-
-int digitalRead(int pin) {
-  // TODO ler do PINB{PIN} o valor
 
   return;
 }
