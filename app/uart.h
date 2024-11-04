@@ -1,7 +1,6 @@
 #ifndef __UART_H__
 #define __UART_H__
 
-
 class UART{
 public:
     static const unsigned long Fcpu = 16e6;
@@ -33,6 +32,11 @@ public:
     void put(char c);
     void puts(const char * s);
     char get();
+
+private:
+    void set_stopbits(Stopbits_t stopbits);
+    void set_databits(Databits_t databits);
+    void set_parity(Parity_t parity);
 };
 
 #endif

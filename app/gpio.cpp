@@ -1,7 +1,6 @@
 #include "gpio.h"
 
 
-
 GPIO_Pin::GPIO_Pin(GPIO_Port_Name port_name, int pin ,GPIO_Direction dir){
     //pinMode
     this->mask = (1 << pin);

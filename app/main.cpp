@@ -6,24 +6,6 @@ const int LED1_PIN = 5;
 const int LED2_PIN = 2;
 const int BTN1_PIN = 0;
 
-GPIO_Pin led1(
-    GPIO_Pin::GPIO_PortB,
-    LED1_PIN,
-    GPIO_Pin::OUTPUT
-);
-
-GPIO_Pin led2(
-    GPIO_Pin::GPIO_PortB,
-    LED2_PIN,
-    GPIO_Pin::OUTPUT
-);
-
-GPIO_Pin btn1(
-    GPIO_Pin::GPIO_PortB,
-    BTN1_PIN,
-    GPIO_Pin::INPUT
-);
-
 UART Serial(9600);
 
 void soft_delay(int times=1){
@@ -35,9 +17,6 @@ void soft_delay(int times=1){
         
     }   
      }
-    
-
-    
 }
 
 
