@@ -1,5 +1,8 @@
+# Arquivo: Makefile
+# Autor: Arliones Hoeller, IFSC-SJE
+
 APP := main.cpp
-COMPONENTS := gpio.o
+COMPONENTS := gpio.o uart.o
 SERIAL_PORT := /dev/ttyACM0
 BUILD_DIR := build
 AVRLIB_NAME := libavr.a
@@ -21,5 +24,5 @@ $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
 
 clean:
-	rm -f *.o *.elf *.ihex 
+	rm -f *.o *.elf *.ihex
 	rm -rf $(BUILD_DIR)

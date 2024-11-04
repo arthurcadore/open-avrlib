@@ -1,36 +1,40 @@
 #include "gpio.h"
 
-GPIO_Pin::GPIO_Pin(GPIO_Port_name port_name, int pin, GPIO_Direction dir)
-{
-    this->mask = 1 << pin;
-    // pinMode
-    this->port = (GPIO_Port *)PORT_ADDR[port_name];
 
-    if (dir == OUTPUT)
-        port->ddr |= this->mask;
-    else
-        port->ddr &= ~this->mask;
+
+GPIO_Pin::GPIO_Pin(GPIO_Port_Name port_name, int pin ,GPIO_Direction dir){
+    //pinMode
+    this->mask = (1 << pin);
+    this->port = (GPIO_Port *)PORT_ADDR[port_name];
+    if(dir == OUTPUT){
+        this->port->ddr |= this->mask;
+    }else{
+        this->port->ddr &= ~this->mask;
+    }
 }
 
-void GPIO_Pin::set()
-{
+
+void GPIO_Pin::set(){
+    //DigitalWrite
     port->port |= mask;
 }
 
-void GPIO_Pin::clear()
-{
-    port->port &= ~mask;
+void GPIO_Pin::clear(){
+    //digitalWrite
+    port->port &= mask; 
 }
 
-int GPIO_Pin::read()
-{
-    return (port->pin & mask) ? HIGH : LOW;
-}
-
-void GPIO_Pin::write(GPIO_STATUS value)
-{
-    if (value)
+void GPIO_Pin::write(GPIO_STATUS value){
+    if(value){
         set();
-    else
+    }else{
         clear();
+    }
 }
+
+int GPIO_Pin::read(){
+    //DifitalRead
+    return (this->port->pin & this->mask) > 0; 
+}
+
+
