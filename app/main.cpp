@@ -6,6 +6,14 @@ const int LED1_PIN = 5;
 const int LED2_PIN = 2;
 const int BTN1_PIN = 0;
 
+
+GPIO_Pin led1(
+    GPIO_Pin::GPIO_PortB,
+    LED1_PIN,
+    GPIO_Pin::OUTPUT
+);
+
+
 UART Serial(9600);
 
 void soft_delay(int times=1){

@@ -4,7 +4,7 @@
 class GPIO_Pin{
 private:
 
-    const int PORT_ADDR[3] = {0x23, 0x26, 0x29};
+    static const int PORT_ADDR[3];
 
     struct GPIO_Port{
         unsigned char pin;
