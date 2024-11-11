@@ -1,6 +1,9 @@
 #ifndef _GPIO_PIN_H_
 #define _GPIO_PIN_H_
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
 class GPIO_Pin{
 private:
 

@@ -1,6 +1,10 @@
 #ifndef __UART_H__
 #define __UART_H__
 
+#include <avr/io.h>
+#include <string.h>
+
+
 class UART{
 public:
     static const unsigned long Fcpu = 16e6;

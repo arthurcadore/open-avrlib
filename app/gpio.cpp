@@ -1,6 +1,5 @@
 #include "gpio.h"
-#include <avr/io.h>
-#include <avr/interrupt.h>
+
 
 const int GPIO_Pin::PORT_ADDR[3] = {0x23, 0x26, 0x29};
 

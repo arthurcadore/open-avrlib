@@ -1,11 +1,7 @@
-#include <avr/io.h>
-#include "gpio.h"
-#include "uart.h"
+#include "main.h"
 
 const int LED1_PIN = 5;
-const int LED2_PIN = 2;
-const int BTN1_PIN = 0;
-
+const int BTN1_PIN = 2;
 
 GPIO_Pin led1(
     GPIO_Pin::GPIO_PortB,
@@ -13,6 +9,17 @@ GPIO_Pin led1(
     GPIO_Pin::OUTPUT
 );
 
+void btn_handler(){
+    static int led_state = 0;
+    led_state != led_state;
+    led1.write(led_state ? GPIO_Pin::HIGH : GPIO_Pin::LOW); ;
+};
+
+GPIO_Pin btn (
+    GPIO_Pin::GPIO_PortB,
+    BTN1_PIN,
+    GPIO_Pin::INPUT
+);
 
 UART Serial(9600);
 

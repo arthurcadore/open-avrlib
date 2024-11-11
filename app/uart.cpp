@@ -1,7 +1,4 @@
 #include "uart.h"
-#include <avr/io.h>
-#include <string.h>
-
 UART::UART(unsigned long baudrate,
         Databits_t databits,
         Parity_t parity,
@@ -39,7 +36,7 @@ void UART::put(char c){
 char UART::get(){
     while(!(UCSR0A & (1 << RXC0)));
     return UDR0;
-}
+} 
 
 // Configurar stop bits
 // void UART::set_stopbits(UART::Stopbits_t stopbits){
