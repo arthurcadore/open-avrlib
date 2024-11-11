@@ -3,7 +3,9 @@
 
 APP := app/main.cpp
 COMPONENTS := app/gpio.o app/uart.o
-SERIAL_PORT := /dev/ttyACM0
+SERIAL_PORT := /dev/ttyACM0	
+# SERIAL_PORT := /dev/ttyUSB0 (for ATMega2560p)	
+
 BUILD_DIR := ./build
 AVRLIB_NAME := libavr.a
 
@@ -15,6 +17,8 @@ all: $(BUILD_DIR) $(COMPONENTS)
 	avr-size $(BUILD_DIR)/main.elf
 	avr-objcopy -O ihex $(BUILD_DIR)/main.elf $(BUILD_DIR)/main.ihex
 	avrdude -p atmega328p -c arduino -P $(SERIAL_PORT) -U flash:w:$(BUILD_DIR)/main.ihex
+#	avrdude -p atmega2560 -c arduino -P $(SERIAL_PORT) -U flash:w:$(BUILD_DIR)/main.ihex (for ATMega2560p)
+
 
 app/%.o: app/%.cpp
 	avr-g++ $(CC_FLAGS) -c $< -o $(BUILD_DIR)/$(notdir $@)
