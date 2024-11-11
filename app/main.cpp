@@ -18,7 +18,8 @@ void btn_handler(){
 GPIO_Pin btn (
     GPIO_Pin::GPIO_PortB,
     BTN1_PIN,
-    GPIO_Pin::INPUT
+    GPIO_Pin::INT_RISING,
+    btn_handler
 );
 
 UART Serial(9600);

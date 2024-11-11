@@ -5,8 +5,12 @@
 #include <avr/interrupt.h>
 
 class GPIO_Pin{
+public: 
+    typedef void (*FuncPtr_t)(void);
+
 private:
 
+    static FuncPtr_t handlers[2];
     static const int PORT_ADDR[3];
 
     struct GPIO_Port{
@@ -28,7 +32,11 @@ public:
     
     enum GPIO_Direction{
         INPUT = 0,
-        OUTPUT = 1
+        OUTPUT = 1,
+        INT_LOW = 2,
+        INT_CHANGE = 3,
+        INT_FALLING = 4,
+        INT_RISING = 5
     };
 
     enum GPIO_STATUS{
@@ -36,15 +44,22 @@ public:
         HIGH = 1
     };
 
+
+
     GPIO_Pin(GPIO_Port_Name port_name,
             int pin,
-            GPIO_Direction dir);
+            GPIO_Direction dir,
+            FuncPtr_t handler = 0);
 
 
     void set();
     void clear();
     void write(GPIO_STATUS value);
     int read();
+
+    static FuncPtr_t get_handler(int int_num){
+        return handlers[int_num];
+    };
 
 };
 

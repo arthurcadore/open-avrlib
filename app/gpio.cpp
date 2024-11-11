@@ -2,9 +2,11 @@
 
 
 const int GPIO_Pin::PORT_ADDR[3] = {0x23, 0x26, 0x29};
+GPIO_Pin::FuncPtr_t GPIO_Pin::handlers[2];
 
 ISR(INT0_vect){
-
+    GPIO_Pin::FuncPtr_t handler = GPIO_Pin::get_handler(0);
+    handler();
 }
 
 ISR(INT1_vect){
@@ -12,7 +14,16 @@ ISR(INT1_vect){
 }
 
 
-GPIO_Pin::GPIO_Pin(GPIO_Port_Name port_name, int pin ,GPIO_Direction dir){
+GPIO_Pin::GPIO_Pin(GPIO_Port_Name port_name, 
+                   int pin,
+                   GPIO_Direction dir,
+                   FuncPtr_t handler){
+    
+    // verifica se o pino é de interrupção e aplica o handler
+    if(dir >= INT_LOW){
+    handlers[pin-2] = handler;
+    }
+
     //pinMode
     this->mask = (1 << pin);
     this->port = (GPIO_Port *)PORT_ADDR[port_name];
