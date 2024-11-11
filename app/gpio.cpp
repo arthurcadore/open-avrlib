@@ -26,8 +26,10 @@ GPIO_Pin::GPIO_Pin(GPIO_Port_Name port_name,
         handlers[int_pin] = handler;
 
         // configurar sensibilidade da interrupção
-        EICRA &= ~(3 << (int_pin*2));
-        EICRA |= int_sens << (int_pin*2);
+        unsigned char tmp = EICRA;
+        tmp &= ~(3 << (int_pin*2));
+        tmp |= int_sens << (int_pin*2);
+        EICRA = tmp;
 
         // habilitar interrupção
         EIMSK |= 1 << int_pin;

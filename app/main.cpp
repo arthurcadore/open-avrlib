@@ -22,7 +22,10 @@ GPIO_Pin btn (
     btn_handler
 );
 
-UART Serial(9600);
+UART Serial(9600,
+            UART::DATABITS_8,
+            UART::PARITY_NONE,
+            UART::STOPBITS_ONE);    
 
 void soft_delay(int times=1){
     for (int i = 0; i < times; i++)
@@ -38,41 +41,13 @@ void soft_delay(int times=1){
 
 void setup()
 {
+    sei();
     Serial.puts("Setup\n");
-    //pinMode(BUTTON_PIN,INPUT);
-    //pinMode(LED1_PIN, OUTPUT);
-    //pinMode(LED2_PIN,OUTPUT);
-    //pinMode(LED_PIN,OUTPUT);
-    //DDRB = led1_mask | led2_mask;
 }
 
 void loop()
 {
     Serial.put(Serial.get() + 1);
-    /*Serial.put('l');
-    if (btn1.read()){
-
-    led1.clear();
-    led2.clear();
-    soft_delay(2);
-    led1.set();
-    led2.set();
-    soft_delay(3);
-    }else {  
-
-    led1.clear();
-    led2.clear();
-    soft_delay(1);
-    led1.set();
-    led2.clear();
-    soft_delay(2);
-    led1.set();
-    led2.set();
-    soft_delay(3);
-    led1.clear();
-    led2.set();
-    soft_delay(2);
-    }*/
 }
 
 int main()
