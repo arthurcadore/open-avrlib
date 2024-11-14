@@ -10,7 +10,8 @@ ISR(INT0_vect){
 }
 
 ISR(INT1_vect){
-
+    GPIO_Pin::FuncPtr_t handler = GPIO_Pin::get_handler(1);
+    handler();
 }
 
 

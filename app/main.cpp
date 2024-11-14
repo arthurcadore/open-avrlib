@@ -2,6 +2,12 @@
 
 const int LED1_PIN = 5;
 const int BTN1_PIN = 2;
+const int BTN2_PIN = 3;
+
+UART Serial(9600,
+            UART::DATABITS_8,
+            UART::PARITY_NONE,
+            UART::STOPBITS_ONE);    
 
 GPIO_Pin led1(
     GPIO_Pin::GPIO_PortB,
@@ -9,23 +15,35 @@ GPIO_Pin led1(
     GPIO_Pin::OUTPUT
 );
 
-void btn_handler(){
+void btn1_handler(){
     static int led_state = 0;
     led_state != led_state;
     led1.write(led_state ? GPIO_Pin::HIGH : GPIO_Pin::LOW); ;
+    Serial.puts("Botão 1\n");
 };
 
-GPIO_Pin btn (
+void btn2_handler(){
+    static int led_state = 0;
+    led_state != led_state;
+    led1.write(led_state ? GPIO_Pin::HIGH : GPIO_Pin::LOW); ;
+    Serial.puts("Botão 2\n");
+};
+
+
+GPIO_Pin btn1 (
     GPIO_Pin::GPIO_PortB,
     BTN1_PIN,
     GPIO_Pin::INT_RISING,
-    btn_handler
+    btn1_handler
 );
 
-UART Serial(9600,
-            UART::DATABITS_8,
-            UART::PARITY_NONE,
-            UART::STOPBITS_ONE);    
+GPIO_Pin btn2 (
+    GPIO_Pin::GPIO_PortB,
+    BTN2_PIN,
+    GPIO_Pin::INT_RISING,
+    btn2_handler
+);
+
 
 void soft_delay(int times=1){
     for (int i = 0; i < times; i++)
