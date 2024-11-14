@@ -38,33 +38,6 @@ char UART::get(){
     return UDR0;
 } 
 
-// Configurar stop bits
-// void UART::set_stopbits(UART::Stopbits_t stopbits){
-//     if(stopbits == STOPBITS_ONE){
-//         UCSR0C &= ~(1 << USBS0);
-//     }else{
-//         UCSR0C |= (1 << USBS0);
-//     }
-// }
-
-// Configurar bit de paridade 
-// void UART::set_parity(UART::Parity_t parity){
-//     UCSR0C &= ~(1 << UPM00);
-//     UCSR0C &= ~(1 << UPM01);
-//     if(parity == PARITY_EVEN){
-//         UCSR0C |= (1 << UPM01);
-//     }else if(parity == PARITY_ODD){
-//         UCSR0C |= (1 << UPM00) | (1 << UPM01);
-//     }
-// }
-// 
-
-// Configurar databits do quadro 
-// void UART::set_databits(UART::Databits_t databits){
-// 
-// 
-// }
-
 // Enviar uma string pela serial
 void UART::puts(const char * s){
 
