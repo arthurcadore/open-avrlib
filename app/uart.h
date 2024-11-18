@@ -3,9 +3,18 @@
 
 #include <avr/io.h>
 #include <string.h>
+#include "fifo.h"
+#include <avr/interrupt.h>
 
 
-class UART{
+
+class UART {
+private: 
+    FIFO<16, char> tx_fifo;
+    FIFO<16, char> rx_fifo;
+
+    static UART* instances[1];
+
 public:
     static const unsigned long Fcpu = 16e6;
     enum Databits_t{
@@ -33,9 +42,20 @@ public:
         Stopbits_t stopbits = STOPBITS_ONE);
 
         
+    void sync_put(char c);
+    void sync_puts(const char * s);
+    char sync_get();
+
     void put(char c);
+    void udre_isr_handler();
     void puts(const char * s);
     char get();
+    char udr_isr_handler();
+    
+    static UART * get_instance(int uart){
+        return instances[uart];
+    }
+
 
 private:
     void set_stopbits(Stopbits_t stopbits);

@@ -1,53 +1,57 @@
-#ifndef _FIFO_H_
-#define _FIFO_H_
+#ifndef _FIFO_H_  // Verifica se _FIFO_H_ não foi definido anteriormente
+#define _FIFO_H_  // Define _FIFO_H_ para evitar múltiplas inclusões
 
-template<int N>
-
-class FIFO{
+// Declaração do template com parâmetros N (tamanho do buffer) e T (tipo dos dados)
+template<int N, typename T>
+class FIFO {
 private:
-    char data[N];
-    int in; 
-    int out;
-    int size;
-    int count;
+    T data[N];  // Array de dados de tamanho N
+    int in;     // Índice de entrada
+    int out;    // Índice de saída
+    int size;   // Tamanho do buffer (sempre igual a N)
+    int count;  // Contador de elementos no buffer
 
 public:
-    FIFO(int size){
-        this->size = size;
-        this->in = 0;
-        this->out = 0;
-        this->count = 0;
+    // Construtor que inicializa os membros da classe
+    FIFO() {
+        this->size = N;  // Define o tamanho do buffer como N
+        this->in = 0;    // Inicializa o índice de entrada
+        this->out = 0;   // Inicializa o índice de saída
+        this->count = 0; // Inicializa o contador de elementos
     }
 
-    bool put(char c){
-        if(in == size){
-            in = 0;
+    // Método para adicionar um elemento ao buffer
+    bool put(T c) {
+        if (in == size) {  // Se o índice de entrada atingir o tamanho do buffer
+            in = 0;        // Reseta o índice de entrada
         }
-        if(in == out){
-            return false;
+        if (in == out) {   // Se o buffer estiver cheio
+            return false;  // Retorna false indicando falha na inserção
         }
-        data[in] = c;
-        in++;
-        count++;
-        return true;
+        data[in] = c;  // Adiciona o elemento no índice de entrada
+        in++;          // Incrementa o índice de entrada
+        count++;       // Incrementa o contador de elementos
+        return true;   // Retorna true indicando sucesso na inserção
     }
 
-    char get(){
-        if(out == size){
-            out = 0;
+    // Método para remover um elemento do buffer
+    T get() {
+        if (out == size) {  // Se o índice de saída atingir o tamanho do buffer
+            out = 0;        // Reseta o índice de saída
         }
-        if(in == out){
-            return 0;
+        if (in == out) {    // Se o buffer estiver vazio
+            return 0;       // Retorna 0 indicando falha na remoção
         }
-        char c = data[out];
-        out++;
-        count--;
-        return c;
+        T c = data[out];  // Obtém o elemento no índice de saída
+        out++;            // Incrementa o índice de saída
+        count--;          // Decrementa o contador de elementos
+        return c;         // Retorna o elemento removido
     }
 
-    int getCount(){
-        return count;
+    // Método para obter a contagem de elementos no buffer
+    int getCount() {
+        return count;  // Retorna o contador de elementos
     }
 };
 
-#endif
+#endif 
