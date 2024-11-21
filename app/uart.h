@@ -50,12 +50,13 @@ public:
     void udre_isr_handler();
     void puts(const char * s);
     char get();
-    char udr_isr_handler();
+    void udr_isr_handler();
     
     static UART * get_instance(int uart){
         return instances[uart];
     }
 
+    bool available();
 
 private:
     void set_stopbits(Stopbits_t stopbits);

@@ -25,7 +25,7 @@ public:
         if (in == size) {  // Se o índice de entrada atingir o tamanho do buffer
             in = 0;        // Reseta o índice de entrada
         }
-        if (in == out) {   // Se o buffer estiver cheio
+        if (count == size) {   // Se o buffer estiver cheio
             return false;  // Retorna false indicando falha na inserção
         }
         data[in] = c;  // Adiciona o elemento no índice de entrada
@@ -39,7 +39,7 @@ public:
         if (out == size) {  // Se o índice de saída atingir o tamanho do buffer
             out = 0;        // Reseta o índice de saída
         }
-        if (in == out) {    // Se o buffer estiver vazio
+        if (count == 0) {    // Se o buffer estiver vazio
             return 0;       // Retorna 0 indicando falha na remoção
         }
         T c = data[out];  // Obtém o elemento no índice de saída

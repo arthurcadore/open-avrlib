@@ -3,7 +3,7 @@
 
 APP := app/main.cpp
 COMPONENTS := app/gpio.o app/uart.o
-SERIAL_PORT := /dev/ttyACM0	
+SERIAL_PORT := /dev/ttyACM0
 # SERIAL_PORT := /dev/ttyUSB0 (for ATMega2560p)	
 
 BUILD_DIR := ./build
