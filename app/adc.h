@@ -1,6 +1,20 @@
-#ifndef _ADC_H_  // Verifica se _FIFO_H_ não foi definido anteriormente
-#define _ADC_H_  // Define _FIFO_H_ para evitar múltiplas inclusões
+#ifndef _ADC_H_  
+#define _ADC_H_  
 
+#include <string.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include "fifo.h"
+
+class ADC_channel{ 
+private:
+    FIFO<16, char> samples;
+    int channel;
+public:
+    ADC_channel(int channel);
+
+    int sample();
+};
 
 
 #endif 

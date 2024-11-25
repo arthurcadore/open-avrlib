@@ -6,8 +6,6 @@
 #include "fifo.h"
 #include <avr/interrupt.h>
 
-
-
 class UART {
 private: 
     FIFO<16, char> tx_fifo;

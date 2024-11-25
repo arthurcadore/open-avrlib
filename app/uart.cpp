@@ -1,7 +1,7 @@
 #include "uart.h"
 #include <avr/io.h>
-#include <string.h>
 #include <avr/interrupt.h>
+#include <string.h>
 
 
 UART* UART::instances[1]; 

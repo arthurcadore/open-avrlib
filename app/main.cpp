@@ -15,6 +15,7 @@ GPIO_Pin led1(
     GPIO_Pin::OUTPUT
 );
 
+
 // void btn1_handler(){
 //     static int led_state = 0;
 //     led_state != led_state;
@@ -65,11 +66,17 @@ void setup()
 
 void loop()
 {
-    if (Serial.available())
-    {
-        Serial.put(Serial.get()+1);
-    }
-}
+    ADC_channel adc(0);
+    
+    int adc_value = adc.sample();
+
+    char str[64];
+    sprintf(str, "ADC: %d\n", adc_value);
+
+    Serial.puts(str);
+
+    soft_delay(3);
+} 
 
 int main()
 {

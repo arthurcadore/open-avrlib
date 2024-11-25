@@ -3,6 +3,7 @@
 
 // Declaração do template com parâmetros N (tamanho do buffer) e T (tipo dos dados)
 template<int N, typename T>
+
 class FIFO {
 private:
     T data[N];  // Array de dados de tamanho N
