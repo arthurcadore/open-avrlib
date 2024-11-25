@@ -9,6 +9,11 @@ UART Serial(9600,
             UART::PARITY_NONE,
             UART::STOPBITS_ONE);    
 
+ADC_channel adc(ADC_CHANNEL_0, 
+                ADC_REF_AVCC, 
+                ADC_PRESCALER_128);
+
+
 GPIO_Pin led1(
     GPIO_Pin::GPIO_PortB,
     LED1_PIN,
@@ -66,16 +71,24 @@ void setup()
 
 void loop()
 {
-    ADC_channel adc(0);
-    
-    int adc_value = adc.sample();
+    for(int i = 0; i < 3; i++){
+        int adc_value = adc.sample();
+        char str[64];
+        sprintf(str, "ADC: %d\n", adc_value);
+        Serial.puts(str);
+        soft_delay(1);
+    }
 
+    // print adc avarage
+    int adc_avarage = adc.avarageSample();
     char str[64];
-    sprintf(str, "ADC: %d\n", adc_value);
-
+    sprintf(str, "ADC Avarage: %d\n", adc_avarage);
     Serial.puts(str);
+    soft_delay(1);
 
-    soft_delay(3);
+    // int n = ADMUX & 0x0F;
+    // ADC_channel* adc = ADC_channel::get_instance(n);
+    // adc->adc_isr_handler();
 } 
 
 int main()

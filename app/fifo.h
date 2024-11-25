@@ -53,6 +53,21 @@ public:
     int getCount() {
         return count;  // Retorna o contador de elementos
     }
+
+    int getSize() {
+        return size;
+    }
+
+    void pop(){
+        if (out == size) {  // Se o índice de saída atingir o tamanho do buffer
+            out = 0;        // Reseta o índice de saída
+        }
+        if (count == 0) {    // Se o buffer estiver vazio
+            return;       // Retorna 0 indicando falha na remoção
+        }
+        out++;            // Incrementa o índice de saída
+        count--;          // Decrementa o contador de elementos
+    }
 };
 
 #endif 
