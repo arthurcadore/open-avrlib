@@ -21,6 +21,10 @@ ADC_channel::ADC_channel(
 
     // set reference voltage
     ADMUX = (ADMUX & 0x3F) | (ref << 6);
+
+    // enable ADC interrupt
+    ADCSRA |= (1 << ADIE);
+
 }
 
 int ADC_channel::sample(){
@@ -46,13 +50,31 @@ int ADC_channel::sample(){
     return sample;
 }
 
+ISR(ADC_vect){
+    ADC_channel* adc = ADC_channel::get_instance(ADMUX & 0x07);
+    adc->adc_isr_handler();
+}
+
+void ADC_channel::adc_isr_handler(){
+    if(samples.getCount() == samples.getSize()){
+        samples.pop();
+    }
+    samples.put(ADC);
+}
+
 int ADC_channel::avarageSample(){
     int sum = 0;
+
     int numSamples = samples.getCount();
+    
     for (int i = 0; i < numSamples; i++)
     {
         sum += samples.get();
     }
     return sum / numSamples;
 }   
+
+bool ADC_channel::available(){
+    return samples.getCount() > 0;
+}
 

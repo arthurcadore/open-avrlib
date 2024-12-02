@@ -51,6 +51,7 @@ GPIO_Pin led1(
 // );
 
 
+
 void soft_delay(int times=1){
     for (int i = 0; i < times; i++)
     {
@@ -72,11 +73,11 @@ void setup()
 void loop()
 {
     for(int i = 0; i < 3; i++){
-        int adc_value = adc.sample();
-        char str[64];
-        sprintf(str, "ADC: %d\n", adc_value);
-        Serial.puts(str);
-        soft_delay(1);
+       int adc_value = adc.sample();
+       char str[64];
+       sprintf(str, "ADC: %d\n", adc_value);
+       Serial.puts(str);
+       soft_delay(1);
     }
 
     // print adc avarage
@@ -89,6 +90,14 @@ void loop()
     // int n = ADMUX & 0x0F;
     // ADC_channel* adc = ADC_channel::get_instance(n);
     // adc->adc_isr_handler();
+
+    // if(adc.available()){
+    //     int adc_value = adc.sample();
+    //     char str[64];
+    //     sprintf(str, "ADC: %d\n", adc_value);
+    //     Serial.puts(str);
+    //     soft_delay(1);
+    // }
 } 
 
 int main()

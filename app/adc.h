@@ -44,9 +44,13 @@ public:
     int sample();
 
     int avarageSample();
+    
+    bool available();
 
-    // create adc isr handler
-    static void adc_isr_handler(){
+    void adc_isr_handler();
+
+    static ADC_channel * get_instance(int channel){
+        return instance[channel];
     }
 
 private: 

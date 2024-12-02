@@ -40,8 +40,11 @@ UART::UART(unsigned long baudrate,
 }
 
 bool UART::available(){
+    cli();
     // Verificar se há dados disponíveis no buffer de recepção
-    return rx_fifo.getCount() > 0;
+    int tmp = rx_fifo.getCount() > 0;
+    sei();
+    return tmp;
 }
 
 void UART::sync_put(char c){
@@ -86,7 +89,10 @@ void UART::udre_isr_handler(){
 }
 
 void UART::put(char c){
+
+    cli();
     tx_fifo.put(c);
+    sei();
     // Habilitar interrupção por recepção completa
     UCSR0B |= (1 << UDRIE0);
 }
@@ -105,5 +111,9 @@ void UART::udr_isr_handler(){
 
 char UART::get(){
     // habilita interrupção por recepção completa
-    return rx_fifo.get();
+    cli();
+    char tmp = rx_fifo.get();
+    sei();
+
+    return tmp;
 }
