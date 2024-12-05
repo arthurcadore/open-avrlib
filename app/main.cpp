@@ -20,6 +20,10 @@ GPIO_Pin led1(
     GPIO_Pin::OUTPUT
 );
 
+Timer timer(Timestamp(1000));
+
+
+
 
 // void btn1_handler(){
 //     static int led_state = 0;
@@ -70,9 +74,9 @@ void setup()
     Serial.puts("Setup\n");
 }
 
-void loop()
-{
-    for(int i = 0; i < 3; i++){
+void adc_test_sync(){
+
+for(int i = 0; i < 3; i++){
        int adc_value = adc.sample();
        char str[64];
        sprintf(str, "ADC: %d\n", adc_value);
@@ -80,24 +84,41 @@ void loop()
        soft_delay(1);
     }
 
-    // print adc avarage
+    // // print adc avarage
     int adc_avarage = adc.avarageSample();
     char str[64];
     sprintf(str, "ADC Avarage: %d\n", adc_avarage);
     Serial.puts(str);
     soft_delay(1);
 
+}
+
+void adc_test_async(){
+    // PARTE DO ADC
     // int n = ADMUX & 0x0F;
     // ADC_channel* adc = ADC_channel::get_instance(n);
     // adc->adc_isr_handler();
 
-    // if(adc.available()){
-    //     int adc_value = adc.sample();
-    //     char str[64];
-    //     sprintf(str, "ADC: %d\n", adc_value);
-    //     Serial.puts(str);
-    //     soft_delay(1);
-    // }
+    if(adc.available()){
+        int adc_value = adc.sample();
+        char str[64];
+        sprintf(str, "ADC: %d\n", adc_value);
+        Serial.puts(str);
+        soft_delay(1);
+    }
+}
+
+int seconds = 0;
+char str[16];
+
+void loop(){
+
+    Timestamp now = timer.micros();
+    if(((now % 1000000) == 0) && (now /1000000 > seconds)){
+        seconds++;
+        sprintf(str, "Segundo: %d\n", seconds);
+        Serial.puts(str);
+    }
 } 
 
 int main()
